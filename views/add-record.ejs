@@ -1,0 +1,66 @@
+<h1>Hi <%= user.name %></h1>
+<form action="/logout?_method=DELETE" method="POST">
+    <button type="submit">Log Out</button>
+</form>
+<form action="">
+    <label for="teacher">Teacher:</label>
+    <input type="text" name="teacher" id="teacher" value="<%= user.name %>" readonly>
+    <br><br>
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" value="<%= user.email %>" readonly>
+    <br><br>
+    <label for="date">Date:</label>
+    <input type="date" name="date" id="date" required>
+    <br><br>
+    <label for="start-time">Lecture start time:</label>
+    <input type="time" name="start-time" id="start-time" required>
+    <br><br>
+    <label for="end-time">Lecture end time:</label>
+    <input type="time" name="end-time" id="end-time" required>
+    <br><br>
+    <label for="year">Year:</label>
+    <select name="year" id="year" required>
+        <option value="fe">FE</option>
+        <option value="se">SE</option>
+        <option value="te">TE</option>
+        <option value="be">BE</option>
+    </select>
+    <br><br>
+    <label for="class">Class:</label>
+    <select name="class" id="class" required>
+        <option value="aids">AI/DS</option>
+        <option value="extc">EXTC</option>
+        <option value="c1">COMPS1</option>
+        <option value="c2">COMPS2</option>
+        <option value="c3">COMPS3</option>
+        <option value="it1">IT1</option>
+        <option value="it2">IT2</option>
+    </select>
+    <br><br>
+    <label for="subject">Subject:</label>
+    <select name="subject" id="subject" required>
+        <option value="phy">Physics</option>
+        <option value="chem">Chemistry</option>
+        <option value="maths">Maths</option>
+        <option value="c">C</option>
+        <option value="java">Java</option>
+        <option value="dsa">DSA</option>
+        <option value="cg">CG</option>
+        <option value="dsgt">DSGT</option>
+        <option value="dlca">DLCA</option>
+        <option value="os">OS</option>
+        <option value="dbms">DBMS</option>
+        <option value="python">Python</option>
+        <option value="mp">MP</option>
+        <option value="dwm">DWM</option>
+        <option value="se">SE</option>
+        <option value="cn">CN</option>
+        <option value="tcs">TCS</option>
+        <option value="pce">PCE</option>
+    </select>
+    <br><br>
+    <label for="vid">Upload video:</label>
+    <input type="file" id="vid" name="vid" accept="video/*" required>
+    <br><br>
+    <input type="Submit" value="Submit">
+</form>
