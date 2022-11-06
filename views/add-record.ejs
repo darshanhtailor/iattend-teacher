@@ -2,7 +2,7 @@
 <form action="/logout?_method=DELETE" method="POST">
     <button type="submit">Log Out</button>
 </form>
-<form action="">
+<form action="/upload-record" method="POST" enctype="multipart/form-data">
     <label for="teacher">Teacher:</label>
     <input type="text" name="teacher" id="teacher" value="<%= user.name %>" readonly>
     <br><br>

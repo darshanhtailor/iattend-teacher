@@ -1,7 +1,39 @@
 <h1>Hi <%= user.name %></h1>
 <form action="/logout?_method=DELETE" method="POST">
-  <button type="submit">Log Out</button>
+    <button type="submit">Log Out</button>
 </form>
 <a href="/add-record">
-  <button>Add Record</button>
+    <button>Add Record</button>
 </a>
+<div id="records">
+
+</div>
+<script>
+    const teacherName = "<%= user.name %>", teacherEmail = "<%= user.email %>"
+ 
+    async function fetchRecords() {
+        const response = await fetch('/teacher-records?email=<%= user.email %>')
+        const records = await response.json()
+        return records;
+    }
+
+    const recordDiv = document.getElementById('records')
+    fetchRecords().then(records => {
+        for(let record of records){
+            let newDiv = document.createElement("div")
+
+            newDiv.innerHTML = `
+            Teacher: ${teacherName}<br>
+            Date: ${record['date'].substring(0, 10)}<br>
+            Lecture start: ${record['start_time']}<br>
+            Lecture end: ${record['end_time']}<br>
+            Year: ${record['year']}<br>
+            Class: ${record['class']}<br>
+            Subject: ${record['subject']}<br>
+            Is processed? :${record['is_process'] ? 'Yes':'No'}<br><br>
+            `
+            
+            recordDiv.appendChild(newDiv)
+        }
+    })
+</script>
