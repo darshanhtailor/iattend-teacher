@@ -1,1 +1,1 @@
-Node.js Authentication System using Passport.js.
+Auto attendance using Face Recognition

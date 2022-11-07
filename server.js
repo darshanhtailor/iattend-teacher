@@ -14,6 +14,7 @@ const multer = require('multer')
 const mongoose = require('mongoose')
 const User = require('./models/user')
 const Record = require('./models/record')
+const Attendance = require('./models/attendance')
 
 const mongoURI = 'mongodb://127.0.0.1:27017/i-attend'
 mongoose.connect(mongoURI)
@@ -88,7 +89,7 @@ const storage = multer.diskStorage({
 	},
 	filename: function (req, file, cb) {
 		const re = /(?:\.([^.]+))?$/
-		const file_name = `${file_const}.${re.exec(file.originalname)[1]}`
+		const file_name = `${Date.now()}.${re.exec(file.originalname)[1]}`
 		file_const = file_name
 		cb(null, file_name)
 	}
@@ -126,11 +127,28 @@ app.get('/teacher-records', checkAuthenticated, async(req, res)=>{
 	}
 })
 
+app.get('/single-record', checkAuthenticated, async(req, res)=>{
+	const record = await Record.find({ teacher_email: req.query.email, video_name: req.query.vid })
+	res.send(record[0])
+})
+
+app.get('/attendees', checkAuthenticated, async(req, res)=>{
+	res.render('attendees.ejs', { user: req.user, vid: req.query.vid })
+})
+
+app.get('/students', checkAuthenticated, async(req, res)=>{
+	if(!req.query.vid){
+		res.send()
+	} else{
+		const students = await Attendance.find({ video_name: req.query.vid }).select('students -_id')
+		res.send(students[0]['students'])
+	}
+})
+
 function checkAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
 		return next()
 	}
-
 	res.redirect('/login')
 }
 

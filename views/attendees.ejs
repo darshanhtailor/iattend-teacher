@@ -1,0 +1,41 @@
+<h1>Hi <%= user.name %></h1>
+<form action="/logout?_method=DELETE" method="POST">
+    <button type="submit">Log Out</button>
+</form>
+<a href="/"><button>Back to Home</button></a>
+<div id="students">
+
+</div>
+<script>
+    async function fetchStudents() {
+        const response1 = await fetch('/students?vid=<%= vid %>')
+        const students = await response1.json()
+
+        const response2 = await fetch('/single-record?email=<%=user.email%>&vid=<%=vid%>')
+        const record = await response2.json()
+
+        return [record, students]
+    }
+
+    fetchStudents().then(data => {
+        const record = data[0], students = data[1]
+
+        let html = ``
+        for(let student of students){
+            html += `${student}<br>`
+        }
+
+        let newDiv = document.createElement("div")
+        newDiv.innerHTML = `
+            Date: ${record['date'].substring(0, 10)}<br>
+            Lecture start: ${record['start_time']}<br>
+            Lecture end: ${record['end_time']}<br>
+            Year: ${record['year']}<br>
+            Class: ${record['class']}<br>
+            Subject: ${record['subject']}<br><br>
+            Attendees:<br>` + html
+        
+        const studentDiv = document.getElementById('students')
+        studentDiv.appendChild(newDiv)        
+    })
+</script>

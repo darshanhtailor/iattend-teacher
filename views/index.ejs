@@ -5,6 +5,7 @@
 <a href="/add-record">
     <button>Add Record</button>
 </a>
+
 <div id="records">
 
 </div>
@@ -30,7 +31,7 @@
             Year: ${record['year']}<br>
             Class: ${record['class']}<br>
             Subject: ${record['subject']}<br>
-            Is processed? :${record['is_process'] ? 'Yes':'No'}<br><br>
+            Is processed?: ${(record['is_processed'] ? `Yes (<a href="/attendees?vid=${record['video_name']}">Attendees</a>)`:'No')}<br><br>
             `
             
             recordDiv.appendChild(newDiv)
